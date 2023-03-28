@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgomes-c <rgomes-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:32:49 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/03/21 13:14:59 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:18:31 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_basic_errors(int ac, char **av, t_struct *pipex)
 		ft_printf("pipex: permission denied: %s\n", av[1]);
 		exit(0);
 	}
-	pipex->outfile = open(av[4], O_RDWR | O_CREAT | O_TRUNC);
+	pipex->outfile = open(av[4], O_RDWR | O_CREAT | O_TRUNC, \
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (pipex->outfile == -1)
 	{
 		ft_printf("pipex: permission denied: %s\n", av[4]);

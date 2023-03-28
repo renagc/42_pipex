@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgomes-c <rgomes-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:53 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/03/22 16:11:14 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:20:25 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <fcntl.h>
 # include "ft_printf/ft_printf.h"
 
@@ -38,16 +39,17 @@ typedef struct s_struct
 	char	**cmd2;
 	char	*path;
 	int		pipe_fd[2];
-	pid_t	pid;
+	pid_t	pid1;
+	pid_t	pid2;
 }t_struct;
-
 
 // -----------------------------  FUNCTIONS --------------------------------- //
 
 //utils.c
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	free_array(char ***str);
+void	free_array(char **str);
+void	frees(t_struct *pipex);
 
 // errors.c
 void	ft_basic_errors(int ac, char **av, t_struct *pipex);

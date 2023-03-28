@@ -1,16 +1,15 @@
-NAME = pipex.a
+NAME = pipex
 
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -rf
+RM = @rm -rf
 SOURCES = main.c errors.c split.c utils.c
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(NAME)
 $(NAME): $(OBJECTS)
 	make -C ft_printf/
-	ar -rcs $(NAME) $(OBJECTS)
 	$(CC) $(CFLAGS) $(SOURCES) ft_printf/libftprintf.a -o pipex
 
 sanita:
@@ -24,4 +23,6 @@ fclean: clean
 	make fclean -C ft_printf/
 	rm -rf pipex.a pipex
 
+run:
+	make re && valgrind ./$(NAME) infile "ls -la" "wc -l" outfile
 make re: fclean all

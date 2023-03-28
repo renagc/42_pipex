@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgomes-c <rgomes-c@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:54:37 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/03/21 19:09:39 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:08:17 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,26 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (sj);
 }
 
-void	free_array(char ***str)
+void	free_array(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (*str[i])
+	while (str[i])
 		i++;
-	while (*str[--i])
-		free(*str[i]);
-	free(**str);
+	while (str[--i])
+		free(str[i]);
+	free(str);
+}
+
+void	frees(t_struct *pipex)
+{
+	if (pipex->cmd1_path)
+		free(pipex->cmd1_path);
+	if (pipex->cmd2_path)
+		free(pipex->cmd2_path);
+	if (pipex->cmd1)
+		free_array(pipex->cmd1);
+	if (pipex->cmd2)
+		free_array(pipex->cmd2);
 }
