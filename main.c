@@ -92,7 +92,7 @@ int	main(int ac, char **av, char **envp)
 	pipex.pid2 = fork();
 	if (pipex.pid2 == 0)
 		child2(&pipex, envp);
-	frees(&pipex);
+    frees(&pipex);
 	close(pipex.pipe_fd[0]);
 	close(pipex.pipe_fd[1]);
 	close(pipex.infile);

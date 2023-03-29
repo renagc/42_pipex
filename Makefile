@@ -24,5 +24,5 @@ fclean: clean
 	rm -rf pipex.a pipex
 
 run:
-	make re && valgrind ./$(NAME) infile "ls -la" "wc -l" outfile
+	make re && valgrind ./$(NAME) infile "bla" "wc -l" outfile
 make re: fclean all
