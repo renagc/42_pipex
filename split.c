@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char const *s)
 {
 	size_t	i;
 

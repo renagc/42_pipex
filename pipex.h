@@ -17,6 +17,7 @@
 
 # include <stdio.h>
 # include <string.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -29,33 +30,22 @@
 
 // ------------------------------- STRUCTS ---------------------------------- //
 
-typedef struct s_struct
+typedef struct s_pipex
 {
-	int		infile;
-	int		outfile;
-	char	*cmd1_path;
-	char	*cmd2_path;
-	char	**cmd1;
-	char	**cmd2;
+	int		file_fd;
 	char	*path;
-	int		pipe_fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
-}t_struct;
+	char	**cmd;
+	pid_t	pid;
+}t_pipex;
 
 // -----------------------------  FUNCTIONS --------------------------------- //
 
 //utils.c
 int		ft_strncmp(char *s1, char *s2, size_t n);
-char	*ft_strjoin(char const *s1, char const *s2);
-void	free_array(char **str);
-void	frees(t_struct *pipex);
+char	*ft_strjoin(char *s1, char *s2);
 
-// errors.c
-void	ft_basic_errors(int ac, char **av, t_struct *pipex);
-
-//split
-size_t	ft_strlen(const char *s);
+//split.c
+size_t	ft_strlen(char const *s);
 char	**ft_split(char const *s, char c);
 
 #endif

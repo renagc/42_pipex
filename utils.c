@@ -26,7 +26,7 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -52,28 +52,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	sj[i] = '\0';
 	return (sj);
-}
-
-void	free_array(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	while (str[--i])
-		free(str[i]);
-	free(str);
-}
-
-void	frees(t_struct *pipex)
-{
-	if (pipex->cmd1_path)
-		free(pipex->cmd1_path);
-	if (pipex->cmd2_path)
-		free(pipex->cmd2_path);
-	if (pipex->cmd1)
-		free_array(pipex->cmd1);
-	if (pipex->cmd2)
-		free_array(pipex->cmd2);
 }
