@@ -10,19 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/pipex.h"
 
 void	ft_error(char *str, int errnum)
 {
 	if (errnum == 0)
-	{
 		perror(0);
-		exit (1);
-	}
 	else if (errnum == 1)
 		ft_printf("command not found\n");
 	else if (errnum == 99)
-	{:wq
+	{
 		ft_printf("Error\n%s\n", str);
 		exit (1);
 	}
@@ -114,9 +111,12 @@ void	ft_init_fork(char **path, char *av_cmd, t_pipex *file)
 	file->path = ft_get_path(path, file->cmd);
 	if (!file->path)
 		ft_error(0, 1);
-	file->pid = fork();
-	if (file->pid == -1)
-		ft_error(0, 2);
+	else
+	{
+		file->pid = fork();
+		if (file->pid == -1)
+			ft_error(0, 2);
+	}
 }
 
 void	ft_free_array(char **str)

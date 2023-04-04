@@ -24,7 +24,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include "ft_printf/ft_printf.h"
+# include "ft_printf.h"
 
 // -------------------------------- MACROS ---------------------------------- //
 
