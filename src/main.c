@@ -6,30 +6,30 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:31:32 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/03/28 18:19:11 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/05 11:58:10 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_error(char *str, int errnum)
+void	ft_error(int exit, char *str)
 {
-	if (errnum == 0)
-		perror(0);
-	else if (errnum == 1)
-		ft_printf("command not found\n");
-	else if (errnum == 99)
+	if (exit == 0)
 	{
-		ft_printf("Error\n%s\n", str);
-		exit (1);
+		perror(0);
+		exit(0);
 	}
+	else if (exit == 1)
+		ft_printf("command not found\n");
+	else
+		perror(0);
 }
 
-char **ft_check_path(char **envp)
+char	**ft_check_path(char **envp)
 {
 	int		i;
 	char	**path;
-	char 	*temp;
+	char	*temp;
 
 	i = 0;
 	path = 0;
@@ -86,14 +86,15 @@ void	ft_end_child(t_pipex *file, int *pipe_fd, char **envp)
 	execve(file->path, file->cmd, envp);
 }
 
-char *quotes(char *str)
+char	*quotes(char *str)
 {
-	int 	len;
+	int	len;
 
 	len = 0;
 	while (str[len])
 		len++;
-	if (str[0] == '"' && str[len - 1] == '"') {
+	if (str[0] == '"' && str[len - 1] == '"')
+	{
 		str[len - 1] = '\0';
 		return (str + 1);
 	}
@@ -102,7 +103,7 @@ char *quotes(char *str)
 
 void	ft_init_fork(char **path, char *av_cmd, t_pipex *file)
 {
-	int 	i;
+	int	i;
 
 	file->cmd = ft_split(av_cmd, ' ');
 	i = 0;
@@ -125,7 +126,7 @@ void	ft_free_array(char **str)
 
 	i = 0;
 	if (!str)
-		return;
+		return ;
 	while (str[i])
 		i++;
 	while (str[--i])
@@ -152,8 +153,8 @@ void	ft_free_close(t_pipex *infile, t_pipex *outfile)
 int	main(int ac, char **av, char **envp)
 {
 	char	**path;
-	int 	pipe_fd[2];
-	t_pipex infile;
+	int		pipe_fd[2];
+	t_pipex	infile;
 	t_pipex	outfile;
 
 	if (ac == 5)
@@ -161,13 +162,13 @@ int	main(int ac, char **av, char **envp)
 		outfile.file_fd = open(av[4], O_RDWR | O_CREAT | O_TRUNC, \
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		if (outfile.file_fd == -1)
-			ft_error(0,0);
+			ft_error(0, 0);
 		infile.file_fd = open(av[1], O_RDONLY);
 		if (infile.file_fd == -1)
-			ft_error(0,0);
+			ft_error(0, 0);
 		path = ft_check_path(envp);
 		if (pipe(pipe_fd) == -1)
-			ft_error(0,0);
+			ft_error(0, 0);
 		ft_init_fork(path, av[2], &infile);
 		if (infile.pid == 0)
 			ft_start_child(&infile, pipe_fd, envp);
