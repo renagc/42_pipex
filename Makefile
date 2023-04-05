@@ -18,11 +18,13 @@ ARM=lib/arm/libftprintf.a \
 AMD=lib/amd/libftprintf.a \
 	lib/amd/libft.a
 
-UNAME_P:=$(shell uname -p)
+#ShellCommands
+UNAME_P=$(shell uname -p)
+FIND_OBJ_FOLDER=$(shell find src/ -type d -name "obj")
 
 #Source files
 SRC=src/main.c
-OBJ = $(SRC:.c=.o)
+OBJ=$(SRC:%.c=%.o)
 
 #Phony targets
 .PHONY: all clean fclean re
@@ -41,7 +43,7 @@ sanitize:
 	@echo "$(COLOUR_GREEN)Make Sanitize Done$(COLOUR_END)"
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) src/obj/$(OBJ)
 	@echo "$(COLOUR_GREEN)$(OBJ) Removed$(COLOUR_END)"
 
 fclean: clean

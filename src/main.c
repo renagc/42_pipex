@@ -6,7 +6,7 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:31:32 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/04/05 14:17:05 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:29:21 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,29 +86,30 @@ void	ft_end_child(t_pipex *file, int *pipe_fd, char **envp)
 	execve(file->path, file->cmd, envp);
 }
 
-char	*quotes(char *str)
-{
-	int	len;
+// char	*quotes(char *str)
+// {
+// 	int	len;
 
-	len = 0;
-	while (str[len])
-		len++;
-	if (str[0] == '"' && str[len - 1] == '"')
-	{
-		str[len - 1] = '\0';
-		return (str + 1);
-	}
-	return (str);
-}
+// 	len = 0;
+// 	while (str[len])
+// 		len++;
+// 	if (str[0] == '"' && str[len - 1] == '"')
+// 	{
+// 		str[len - 1] = '\0';
+// 		return (str + 1);
+// 	}
+// 	return (str);
+// }
 
 void	ft_init_fork(char **path, char *av_cmd, t_pipex *file)
 {
 	int	i;
 
+	(void)i;
 	file->cmd = ft_split(av_cmd, ' ');
-	i = 0;
-	while (file->cmd[++i])
-		file->cmd[i] = quotes(file->cmd[i]);
+	// i = 0;
+	// while (file->cmd[++i])
+	// 	file->cmd[i] = quotes(file->cmd[i]);
 	file->path = ft_get_path(path, file->cmd);
 	if (!file->path)
 		ft_error(2, 0);
