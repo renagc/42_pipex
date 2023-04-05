@@ -12,10 +12,16 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = @rm -rf
 
+#Library directories
+ARM=lib/arm/libftprintf.a \
+	lib/arm/libft.a
+AMD=lib/amd/libftprintf.a \
+	lib/amd/libft.a
+
+UNAME_P:=$(shell uname -p)
+
 #Source files
-SRC=src/main.c \
-	src/utils.c \
-	src/split.c
+SRC=src/main.c
 OBJ = $(SRC:.c=.o)
 
 #Phony targets
@@ -23,7 +29,11 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(SRC) lib/libftprintf.a -o pipex
+ifeq ($(UNAME_P),x86_64)
+	$(CC) $(CFLAGS) $(SRC) $(AMD) -o pipex
+else
+	$(CC) $(CFLAGS) $(SRC) $(ARM) -o pipex
+endif
 	@echo "$(COLOUR_GREEN)Compiled$(COLOUR_END)"
 
 sanitize:

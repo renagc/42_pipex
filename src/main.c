@@ -6,7 +6,7 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:31:32 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/04/05 13:35:52 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:17:05 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int	main(int ac, char **av, char **envp)
 		ft_init_fork(path, av[3], &outfile);
 		if (outfile.pid == 0)
 			ft_end_child(&outfile, pipe_fd, envp);
+		ft_free_close(&infile, &outfile);
 	}
 	return (0);
 }

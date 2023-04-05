@@ -6,7 +6,7 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:53 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/03/28 18:20:25 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:17:52 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include "ft_printf.h"
+# include "libft.h"
 
 // -------------------------------- MACROS ---------------------------------- //
 
@@ -39,13 +40,5 @@ typedef struct s_pipex
 }t_pipex;
 
 // -----------------------------  FUNCTIONS --------------------------------- //
-
-//utils.c
-int		ft_strncmp(char *s1, char *s2, size_t n);
-char	*ft_strjoin(char *s1, char *s2);
-
-//split.c
-size_t	ft_strlen(char const *s);
-char	**ft_split(char const *s, char c);
 
 #endif
