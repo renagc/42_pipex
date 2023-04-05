@@ -6,21 +6,21 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:31:32 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/04/05 11:58:10 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/05 13:35:52 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	ft_error(int exit, char *str)
+void	ft_error(int exit_num, char *str)
 {
-	if (exit == 0)
+	if (exit_num == 0)
 	{
 		perror(0);
 		exit(0);
 	}
-	else if (exit == 1)
-		ft_printf("command not found\n");
+	else if (exit_num == 1)
+		ft_printf("%s\n", str);
 	else
 		perror(0);
 }
@@ -111,12 +111,12 @@ void	ft_init_fork(char **path, char *av_cmd, t_pipex *file)
 		file->cmd[i] = quotes(file->cmd[i]);
 	file->path = ft_get_path(path, file->cmd);
 	if (!file->path)
-		ft_error(0, 1);
+		ft_error(2, 0);
 	else
 	{
 		file->pid = fork();
 		if (file->pid == -1)
-			ft_error(0, 2);
+			ft_error(2, 0);
 	}
 }
 
@@ -162,13 +162,13 @@ int	main(int ac, char **av, char **envp)
 		outfile.file_fd = open(av[4], O_RDWR | O_CREAT | O_TRUNC, \
 		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		if (outfile.file_fd == -1)
-			ft_error(0, 0);
+			ft_error(1, 0);
 		infile.file_fd = open(av[1], O_RDONLY);
 		if (infile.file_fd == -1)
-			ft_error(0, 0);
+			ft_error(1, 0);
 		path = ft_check_path(envp);
 		if (pipe(pipe_fd) == -1)
-			ft_error(0, 0);
+			ft_error(1, 0);
 		ft_init_fork(path, av[2], &infile);
 		if (infile.pid == 0)
 			ft_start_child(&infile, pipe_fd, envp);
