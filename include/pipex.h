@@ -31,17 +31,27 @@
 
 // ------------------------------- STRUCTS ---------------------------------- //
 
+typedef struct s_cmd
+{
+	char				*path;
+	char				**args;
+}t_cmd;
+
 typedef struct s_pipex
 {
-	int		file_fd;
-	char	*path;
-	char	**cmd;
-	pid_t	pid;
+	int		infile_fd;
+	int		outfile_fd;
+	int		pipe_fd[2];
+	char	**path;
+	t_cmd	cmd1;
+	t_cmd	cmd2;
 }t_pipex;
 
 // -----------------------------  FUNCTIONS --------------------------------- //
 
 //utils.c
-
+void	ft_free_array(char **array);
+void	ft_close_all(t_pipex *pipex);
+char	**ft_get_env_path(char **envp);
 
 #endif
