@@ -21,7 +21,6 @@ AMD=lib/amd/libftprintf.a \
 
 #ShellCommands
 UNAME_P=$(shell uname -p)
-FIND_OBJ_FOLDER=$(shell find src/ -type d -name "obj")
 
 #Source files
 SRC=src/main.c \
@@ -39,10 +38,6 @@ else
 	$(CC) $(CFLAGS) $(SRC) $(ARM) -o pipex
 endif
 	@echo "$(COLOUR_GREEN)Compiled$(COLOUR_END)"
-
-sanitize:
-	$(CC) $(SRC) lib/libftprintf.a -fsanitize=address -g -o $(NAME)
-	@echo "$(COLOUR_GREEN)Make Sanitize Done$(COLOUR_END)"
 
 clean:
 	$(RM) $(OBJ)
