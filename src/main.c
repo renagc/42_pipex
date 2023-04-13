@@ -6,7 +6,7 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:31:32 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/04/05 17:29:21 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:28:47 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	ft_child(char **envp, t_cmd *cmd, t_pipex *pipex, int flag)
 {
 	if (flag == 0)
 	{
+		close(pipex->pipe_fd[0]);
 		if (dup2(pipex->infile_fd, STDIN_FILENO))
 			exit(0);
 		dup2(pipex->pipe_fd[1], STDOUT_FILENO);
 		close(pipex->infile_fd);
-		close(pipex->pipe_fd[0]);
 	}
 	else
 	{
@@ -49,6 +49,8 @@ void	ft_child(char **envp, t_cmd *cmd, t_pipex *pipex, int flag)
 		close(pipex->pipe_fd[1]);
 	}
 	execve(cmd->path, cmd->args, envp);
+	ft_close_all(pipex);
+	exit(0);
 }
 
 //this function will get the array of the commands
@@ -57,16 +59,20 @@ void	ft_get_cmds(t_pipex *pipex, char **av)
 	pipex->cmd1.args = ft_split(av[2], ' ');
 	pipex->cmd2.args = ft_split(av[3], ' ');
 	pipex->cmd1.path = ft_get_cmd_path(pipex, pipex->cmd1.args[0]);
+	if (!pipex->cmd1.path && pipex->infile_fd != -1)
+		ft_printf("command not found: %s\n", pipex->cmd1.args[0]);
 	pipex->cmd2.path = ft_get_cmd_path(pipex, pipex->cmd2.args[0]);
+	if (!pipex->cmd2.path)
+		ft_printf("command not found: %s\n", pipex->cmd2.args[0]);
 }
 
+//open files and create pipe
 void	ft_open_fds(t_pipex *pipex, char **av)
 {
 	pipex->infile_fd = open(av[1], O_RDONLY);
 	if (pipex->infile_fd == -1)
 		perror(av[1]);
-	pipex->outfile_fd = open(av[4], O_RDWR | O_CREAT | O_TRUNC, \
-		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	pipex->outfile_fd = open(av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (pipe(pipex->pipe_fd) == -1)
 		perror("pipe error");
 }
@@ -80,7 +86,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac == 5)
 	{
 		ft_open_fds(&pipex, av);
-		pipex.path = ft_get_env_path(envp);
+		pipex.path = ft_get_env_path_array(envp);
 		ft_get_cmds(&pipex, av);
 		process_id1 = fork();
 		if (process_id1 == 0)

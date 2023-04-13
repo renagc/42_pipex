@@ -41,7 +41,7 @@ endif
 	@echo "$(COLOUR_GREEN)Compiled$(COLOUR_END)"
 
 sanitize:
-	$(CC) $(SRC) lib/libftprintf.a -fsanitize=address -g -o pipex
+	$(CC) $(SRC) lib/libftprintf.a -fsanitize=address -g -o $(NAME)
 	@echo "$(COLOUR_GREEN)Make Sanitize Done$(COLOUR_END)"
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: rgomes-c <rgomes-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:29:53 by rgomes-c          #+#    #+#             */
-/*   Updated: 2023/04/05 17:28:57 by rgomes-c         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:30:44 by rgomes-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "ft_printf.h"
 # include "libft.h"
 
@@ -52,6 +53,6 @@ typedef struct s_pipex
 //utils.c
 void	ft_free_array(char **array);
 void	ft_close_all(t_pipex *pipex);
-char	**ft_get_env_path(char **envp);
+char	**ft_get_env_path_array(char **envp);
 
 #endif
