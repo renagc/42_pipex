@@ -1,14 +1,13 @@
 # Pipex
 
-This project allows you to explore and implement a familiar UNIX mechanism within your program.
+This project allows to explore and implement a familiar UNIX mechanism within the program.
 
 ## Requirements
 _Arguments: file1, cmd1, cmd2, file2_
 External functions allowed:
 open, close, read, write, malloc, free, perror, strerror, access, dup, dup2, execve, exit, fork, pipe, unlink, wait, waitpid
-This project involves handling pipes. Your program will be executed as follows:
+This project involves handling pipes.
 
-## Example
 ### Program will be executed as follows:
 `./pipex file1 cmd1 cmd2 file2`
 <br></br>
